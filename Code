@@ -1,0 +1,23 @@
+import tweepy
+import datetime as dt
+import pandas as pd
+auth = tweepy.OAuthHandler("Cpm7Xft6mDjVK6N3WJnFbycpP" , "OTG2ytUNE44cW1bjAfkqu62LQIg031aGxF4BlnsrqJhGmzw3o7")
+auth.set_access_token("351229472-4hhbj337s5SBxfGHvoQH2uS2WxPuBbdVSflZrynP", "VRVFKCmStSx2LnaojtbOEeMYi0Aep7TqzYvo1UYXr3uRf" )
+
+api = tweepy.API(auth)
+
+trends = api.trends_place(1)
+trends_list=trends[0]["trends"]
+
+current_trends={}
+
+for row in trends_list:
+    trend=row["name"]
+    ranking=trends_list.index(row)+1
+    time=dt.datetime.now().strftime("%I %p")
+    date=dt.datetime.now().strftime("%m/%d/%Y")
+    trend_data=[date,time,trend]
+    current_trends[ranking]=trend_data
+
+
+print(current_trends)
